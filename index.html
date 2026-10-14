@@ -70,6 +70,7 @@ document.querySelector('#signIn').onclick=()=>login('signin');document.querySele
 document.querySelector('#signOut').onclick=async()=>{if(sb)await sb.auth.signOut();document.querySelector('#auth').textContent='Connexion / Inscription';sayAuth('Déconnecté')};
 if(sb)sb.auth.getUser().then(({data})=>{if(data?.user)document.querySelector('#auth').textContent='Mon compte'}).catch(()=>{});
 function drawIcons(){document.querySelectorAll('[data-icon]').forEach(e=>{const i=document.createElement('i');i.setAttribute('data-lucide',e.dataset.icon);e.replaceWith(i)});if(window.lucide)window.lucide.createIcons()}
+const originalRender=render;render=()=>{originalRender();drawIcons()};
 drawIcons();
 
 render();
