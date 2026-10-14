@@ -1,27 +1,25 @@
 # Le Bouton Mondial 🔴
 
-Un bouton. Une mission inutile.
+Un bouton. Une mission inutile. Interface plein écran et icônes Lucide.
 
-## Lancer le site
-Ouvrir `index.html` dans un navigateur ou publier le dépôt via GitHub Pages (Settings → Pages → Deploy from a branch → main / root).
+## Démarrage
+Ouvrir `index.html` ou activer GitHub Pages sur la branche `main` (racine). Aucun build nécessaire.
 
-Aucune dépendance, aucune compilation. Interface responsive en HTML, CSS et JavaScript.
+## Synchronisation avec Supabase
+Projet Supabase : `rtxtwbizfbsjhvttyatn`. Les tables et fonctions serveur ont été créées directement dans ce projet :
+- `button_world` : total mondial permanent.
+- `button_players` : pseudo et clics par compte (total, semaine et jour UTC).
+- `button_click()` : incrément atomique du joueur et du total mondial ; limitation de fréquence basique (150 ms).
+- `button_set_pseudo(text)` : changement du pseudo du compte.
+- Row Level Security activée ; seuls les appels RPC authentifiés peuvent écrire des clics.
+- Supabase Realtime + rafraîchissement de secours toutes les 15 secondes.
 
-## Version actuelle : prototype local V0.1
-- Bouton rouge (un clic = un point)
-- Sauvegarde locale automatique
-- Douze succès personnels
-- Dix boutons spéciaux, certains verrouillés selon la progression
-- Phases de progression et révélation finale locale à 1 000 000 de clics
-- Tableau personnel : total, semaine UTC, jour UTC
-- Pseudo local et panneau de navigation mobile
+## Règle de contribution
+Les comptes connectés contribuent au **compteur mondial**. Les visiteurs non connectés peuvent cliquer, mais leurs clics sont **locaux et provisoires** et ne sont pas encore transférés automatiquement lors de l'inscription. Ils n'apparaissent pas dans les classements mondiaux.
 
-## Ce qui n'est PAS encore connecté
-Le dépôt ne possède pour l'instant **aucun backend**. Le compteur « démo » est local à chaque navigateur et n'est **pas mondial**. Le classement ne contient que ce joueur ; il ne prétend pas représenter d'autres utilisateurs. Les pages de succès mondiaux sont préparées mais inactives.
+Un clic de compte connecté nécessite une réponse positive du serveur. Les clics trop rapprochés ne sont pas comptabilisés. Aucun multiplicateur.
 
-Le bouton « Connexion / Inscription » permet uniquement de choisir un pseudo **local**. Ce n'est pas une véritable inscription, et aucune identité ni mot de passe n'est envoyé à un serveur.
+## Important
+La confirmation e-mail est un paramètre à ajuster manuellement dans Supabase Auth > Providers > Email : la présence de ce formulaire ne désactive pas elle-même cette confirmation.
 
-## Étape suivante
-Ajouter authentification, base de données et API avec contrôle serveur des clics, comptes et classement global ; synchronisation en temps réel ; anti-abus raisonnable ; séquences événementielles mondiales et replay de fin. Conserver 1 clic = +1 et le total historique jamais remis à zéro.
-
-La monnaie « Inutile Frr » serait fictive, sans conversion ni achats en argent réel.
+Les classements sont récupérés depuis le serveur (jusqu'à 1000 profils). Le site ne prétend pas afficher des utilisateurs fictifs. Les succès mondiaux et le grand événement final restent à implémenter ; l'interface présente leur préparation.
